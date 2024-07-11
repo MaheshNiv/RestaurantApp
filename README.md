@@ -25,6 +25,8 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 Description: Allow users to add a new restaurant to the platform.
 Fields Required: Name, Description, Location etc
 Validations: Implement validations (e.g., required fields, format checks for data like email or phone numbers).
+![Screenshot 2024-07-11 234512](https://github.com/MaheshNiv/RestaurantApp/assets/134502512/fff7b45d-560e-4807-9f90-9548e9fd3c79)
+
 
 2. Modify Restaurant Details
 Description: Enable users to modify existing restaurant details.
