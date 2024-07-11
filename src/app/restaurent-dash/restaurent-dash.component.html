@@ -1,0 +1,90 @@
+<nav class="navbar">
+  <div class="container-fluid">
+    <h1>Foodie Delight Restaurant Record App</h1>
+    <div class="d-flex">
+     <button mat-raised-button (click)="clickAddResto()" class="add-btn" type="button"  data-bs-target="#exampleModal" data-bs-toggle="modal">Add Restaurant</button>
+     <button mat-raised-button routerLink="/Home" style="margin-left: 5px;" class="logout-btn" type="button" data-bs-toggle="modal">Log Out</button>
+   </div>
+  </div>
+</nav>
+
+<div class="container mt-4">
+   <input type="text" class="form-control mb-3" placeholder="Search by restaurant name" [formControl]="searchControl">
+</div>
+
+<div class="table-responsive mt-4">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Restaurant Id</th>
+                <th scope="col">Restaurant Name</th>
+                <th scope="col">Restaurant Email</th>
+                <th scope="col">Restaurant Address</th>
+                <th scope="col">Restaurant Phone</th>
+                <th scope="col">Restaurant Services</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of filteredRestaurentData">
+                <td data-label="Restaurant Id">{{data.id}}</td>
+                <td data-label="Restaurant Name">{{data.name}}</td>
+                <td data-label="Restaurant Email">{{data.email}}</td>
+                <td data-label="Restaurant Address">{{data.address}}</td>
+                <td data-label="Restaurant Phone">{{data.mobile}}</td>
+                <td data-label="Restaurant Services">{{data.services}}</td>
+                <td data-label="Action">
+                    <button mat-raised-button (click)="onEditResto(data)" class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button>
+                    <button   mat-raised-button (click)="deleteResto(data.id)"  style="margin: 5px;" class="btn delete-btn">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel">Records</h5>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+           </div>
+           <div class="modal-body">
+               <form [formGroup]="formValue">
+                   <div class="mb-3">
+                       <label class="form-label">Name</label>
+                       <input [class.is-invalid]="formValue.get('name')?.invalid && formValue.get('name')?.touched" type="text" class="form-control"  formControlName="name" placeholder="Restaurant Name">
+                       <small [class.d-none]="formValue.get('name')?.valid || formValue.get('name')?.untouched" class="text-danger" >Name requied</small>
+                   </div>
+                   <div class="mb-3">
+                       <label class="form-label">Email</label>
+                       <input [class.is-invalid]="formValue.get('email')?.invalid && formValue.get('email')?.touched" type="email" class="form-control" formControlName="email" placeholder="abcd@gmail.com">
+                       <small [class.d-none]="formValue.get('email')?.valid || formValue.get('email')?.untouched" class="text-danger" >Email requied</small>
+                   </div>
+                   <div class="mb-3">
+                       <label class="form-label">Address</label>
+                       <textarea [class.is-invalid]="formValue.get('address')?.invalid && formValue.get('address')?.touched" type="text" class="form-control" formControlName="address" placeholder="Abc road, near abc, pin: 12546"></textarea>
+                       <small [class.d-none]="formValue.get('address')?.valid || formValue.get('address')?.untouched" class="text-danger" >Address requied</small>
+                   </div>
+                   <div class="mb-3">
+                       <label class="form-label">Mobile</label>
+                       <input [class.is-invalid]="formValue.get('mobile')?.invalid && formValue.get('mobile')?.touched" type="number" class="form-control" formControlName="mobile" placeholder="+91-1234567890">
+                       <small [class.d-none]="formValue.get('mobile')?.valid || formValue.get('mobile')?.untouched" class="text-danger" >Phone No requied</small>
+                   </div>
+                   <div class="mb-3">
+                       <label class="form-label">Services</label>
+                       <input [class.is-invalid]="formValue.get('services')?.invalid && formValue.get('services')?.touched" type="text" class="form-control" formControlName="services" placeholder="chai, coffee">
+                       <small [class.d-none]="formValue.get('services')?.valid || formValue.get('services')?.untouched" class="text-danger" >Services requied</small>
+                   </div>
+               </form>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="clear">Close</button>
+               <button *ngIf="showAdd" type="button" data-bs-dismiss="modal" class="btn btn-primary" (click)="addRestaurent()" [disabled]="formValue.invalid">Add Details</button>
+               <button *ngIf="showBtn" type="button" data-bs-dismiss="modal" class="btn btn-primary" (click)="updateResto()">Update</button>
+           </div>
+       </div>
+   </div>
+</div>
